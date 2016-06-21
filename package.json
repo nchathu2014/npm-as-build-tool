@@ -7,11 +7,14 @@
     "start": "node index.js",
     "start:dev": "node index.js 4000",
     "test": "mocha test -u bdd -R spec",
-    "pretest": "npm run lint",
+    "pretest": "npm run compile && npm run build:less && npm run lint",
     "posttest": "echo 'test complete'",
     "compile:coffee": "coffee --compile --output ./lib ./src/coffeescripts",
     "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescripts/tsCode.ts",
-    "compile":"npm run compile:coffee && npm run compile:ts",
+    "compile": "npm run compile:coffee && npm run compile:ts",
+    "precompile": "npm run clean",
+    "clean": "rimraf lib/* && rimraf public/css/*",
+    "build:less": "lessc client/less/demo.less public/css/site.css",
     "greet": "echo 'greeting' ",
     "lint": "jshint ."
   },
@@ -25,8 +28,9 @@
   "devDependencies": {
     "coffee-script": "^1.10.0",
     "jshint": "^2.9.2",
-    "jslint": "^0.10.1",
+    "less": "^2.7.1",
     "mocha": "^2.5.3",
+    "rimraf": "^2.5.2",
     "should": "^9.0.2",
     "supertest": "^1.2.0",
     "typescript": "^1.8.10"
