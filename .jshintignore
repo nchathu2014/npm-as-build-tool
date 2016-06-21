@@ -1,0 +1,4 @@
+node_modules/
+dist/
+test/lint_ignore.js
+lib/
